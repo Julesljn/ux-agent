@@ -2,14 +2,27 @@ from langchain.prompts import PromptTemplate
 
 ux_prompt = PromptTemplate(
     input_variables=["context", "question"],
-    template="""Tu es un expert UX/UI designer. 
+    template="""
+# CONTEXTE UX
+{{ context }}
 
-Voici les règles UX pertinentes trouvées :
-{context}
+# OBJECTIF
+En tant qu’expert UX/UI, fournis des recommandations pratiques et concrètes
+pour répondre à : « {{ question }} ».
+Aide toi et inspire toi des règles UX listées ci-dessus.
 
-Donne des conseils pratiques et concrets pour : {question}
+# FORMAT DE RÉPONSE
+{% raw %}
+[
+  { "id": 1, "content": "" },
+  { "id": 2, "content": "" }
+]
+{% endraw %}
 
-RÉPONSE:"""
+RENVOIE STRICTEMENT CE JSON (avec tes propres contenus),
+sans aucun texte supplémentaire.
+""",
+    template_format="jinja2",
 )
 
 query_rewrite_prompt = PromptTemplate(

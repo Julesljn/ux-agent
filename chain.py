@@ -1,6 +1,7 @@
 from langchain_ollama import ChatOllama
 from langchain.schema.runnable import RunnablePassthrough
-from langchain.schema.output_parser import StrOutputParser
+from langchain_core.output_parsers import JsonOutputParser, StrOutputParser
+
 import config
 from rag import search_rules
 from prompt import ux_prompt, query_rewrite_prompt
@@ -42,7 +43,7 @@ ux_chain = (
     RunnablePassthrough.assign(context=process_question_and_get_context)
     | ux_prompt 
     | llm 
-    | StrOutputParser()
+    | JsonOutputParser()
 )
 
 def get_ux_advice(question):

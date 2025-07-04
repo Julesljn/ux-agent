@@ -14,7 +14,7 @@ def main():
             
         advice = get_ux_advice(question)
         
-        print(f"\n[Réponse Final] {advice}")
+        print(f"\n{advice}")
 
 if __name__ == "__main__":
     main()
